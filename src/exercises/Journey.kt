@@ -28,8 +28,8 @@ fun calculateJourneyMinCost(fuelCost: Array<Long>, checkpointFuelConsumption: Ar
         if (curCheckpoint != lastcheckpoint && fuelCost[curCheckpoint + 1] > fuelCost[curCheckpoint]) {
             val litersNeeded = checkpointFuelConsumption[curCheckpoint] + checkpointFuelConsumption[curCheckpoint + 1]
             val cost = fuelCost[curCheckpoint] * litersNeeded
-            fuelInCar = fuelInCar + litersNeeded
-            totalCost = totalCost + cost
+            fuelInCar += litersNeeded
+            totalCost += cost
         }
 
         if(fuelInCar < checkpointFuelConsumption[curCheckpoint]) {
