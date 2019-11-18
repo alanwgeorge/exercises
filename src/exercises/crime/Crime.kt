@@ -20,7 +20,7 @@ fun main() {
         var criminalsCaught = 0
 
         grid.forEach { line ->
-            for (i in 0..(line.size - 1)) {
+            for (i in 0 until line.size) {
                 if (line[i] == 'P') {
                     val searchStart = if (i - policeReach < 0) 0 else i - policeReach
                     val searchEnd = if (i + policeReach >= line.size) line.size - 1 else i + policeReach
