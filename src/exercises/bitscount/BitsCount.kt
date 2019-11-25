@@ -18,6 +18,9 @@ fun main() {
 
     repeat(numberOfTestCases) {
         val inNumber = readLine()?.toInt() ?: throw Exception("error parsing battlefield size")
+
+//        println("${inNumber.toString(2)}  > ${inNumber.toString(2).count { it == '1' }}")
+
         println(countBitsSet(inNumber))
     }
 }

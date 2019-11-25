@@ -2,20 +2,21 @@ package exercises
 
 @ExperimentalUnsignedTypes
 fun main() {
-    val foo = 45678955u
+    val foo = listOf(1,1,1,1,0,1,1,1,1)
 
-    println("${foo.toString(2)}  > ${foo.toString(2).count { it == '1' }}")
-    println(countBitsSet(foo))
+    val bar = foo.fold(1) { acc, value ->
+        val n = acc and value
+        println(n)
+        n
+    }
+
+    println(bar)
 }
 
 fun isPowerOfTwo(x: Int) =
     if (x == 0) {
         false
-    } else if (x and (x - 1) == 0) {
-        true
-    } else {
-        false
-    }
+    } else x and (x - 1) == 0
 
 fun <T> printAllSubSets(inp: List<T>) {
     val numOfSubs = 1 shl inp.size
