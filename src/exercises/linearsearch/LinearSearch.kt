@@ -1,4 +1,4 @@
-package exercises.binsearch
+package exercises.linearsearch
 
 /*
 * https://www.hackerearth.com/practice/algorithms/searching/linear-search/tutorial/
@@ -10,9 +10,10 @@ fun main() {
 
     var lastIndex = -1
 
-    input.forEachIndexed { idx, value ->
-        if (value == searchTerm) {
-            lastIndex = idx + 1
+    for (i in (input.size - 1) downTo 0) {
+        if (input[i] == searchTerm) {
+            lastIndex = i + 1
+            break
         }
     }
 
