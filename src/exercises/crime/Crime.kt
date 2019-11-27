@@ -39,7 +39,7 @@ fun main() {
     }
 }
 
-fun List<List<Char>>.print() {
+fun <T: Any> List<List<T>>.print() {
     forEach {
         it.forEach {
            print("$it ")

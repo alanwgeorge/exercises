@@ -24,7 +24,7 @@ fun main() {
 }
 
 fun main2() {  // abandoned attempt
-    var original = mutableListOf(7,7,7,7,7)
+    val original = mutableListOf(7,7,7,7,7)
 
     val commands = listOf(
             listOf(1,3,4),
@@ -33,13 +33,13 @@ fun main2() {  // abandoned attempt
 
     val masks = MutableList(original.size) { Int.MAX_VALUE }
 
-    for (i in 0 until commands.size) {
+    for (i in commands.indices) {
         val (l,r,v) = commands[i]
         for (range in (l - 1) until r) masks[range] = masks[range] and v
         println("${v.toString(2)} $masks")
     }
 
-    for (i in 0 until original.size) {
+    for (i in original.indices) {
         original[i] = original[i] and masks[i]
     }
 

@@ -27,6 +27,8 @@ fun main() {
     val input = readLine()?.split(" ", limit = inputSize)?.map { it.toInt() }?.toMutableList() ?: throw Exception("error parsing input line")
     val numQueries = readLine()?.toInt() ?: throw Exception("error parsing number of queries")
 
+    input.sort()
+
     repeat(numQueries) {
         val value = readLine()?.toInt() ?: throw Exception("error parsing input $it")
         println(input.search(value))
