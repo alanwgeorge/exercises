@@ -2,15 +2,13 @@ package exercises
 
 @ExperimentalUnsignedTypes
 fun main() {
-    val foo = listOf(1,1,1,1,0,1,1,1,1)
+    val foo = listOf(1,0,1,0,1,0,1,0,1)
 
-    val bar = foo.fold(1) { acc, value ->
-        val n = acc and value
+    foo.fold(0) { acc, value ->
+        val n = acc xor value
         println(n)
         n
     }
-
-    println(bar)
 }
 
 fun isPowerOfTwo(x: Int) =

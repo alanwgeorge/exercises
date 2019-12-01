@@ -1,3 +1,4 @@
+
 package exercises.linearsearch
 
 /*
