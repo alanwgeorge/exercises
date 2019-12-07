@@ -1,5 +1,6 @@
 package exercises.binarysearch
 
+import exercises.bubbleSort
 import exercises.searchBinary
 
 /*
@@ -11,7 +12,7 @@ fun main() {
     val input = readLine()?.split(" ", limit = inputSize)?.map { it.toInt() }?.toMutableList() ?: throw Exception("error parsing input line")
     val numQueries = readLine()?.toInt() ?: throw Exception("error parsing number of queries")
 
-    input.sort()
+    input.bubbleSort()
 
     repeat(numQueries) {
         val value = readLine()?.toInt() ?: throw Exception("error parsing input $it")

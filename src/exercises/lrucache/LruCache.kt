@@ -23,13 +23,12 @@ class LruCache<T>(val size: Int = 10) {
     private var tail: Node<T>? = null
     private val hashMap = mutableMapOf<String, Node<T>>()
 
-    fun get(tag: String): T? {
-        val node = hashMap.getOrDefault(tag, null) ?: return null
+    fun get(tag: String): T? =
+        hashMap[tag]?.let {
+            moveToHead(it)
+            it.value
+        }
 
-        moveToHead(node)
-
-        return node.value
-    }
 
     fun put(tag: String, value: T) {
         if (hashMap.isEmpty()) {
