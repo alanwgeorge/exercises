@@ -2,13 +2,24 @@ package exercises
 
 @ExperimentalUnsignedTypes
 fun main() {
-    val foo = listOf(1,0,1,0,1,0,1,0,1)
+//    val foo = listOf(1,0,1,0,1,0,1,0,1)
+//
+//    foo.fold(0) { acc, value ->
+//        val n = acc xor value
+//        println(n)
+//        n
+//    }
 
-    foo.fold(0) { acc, value ->
-        val n = acc xor value
-        println(n)
-        n
+    val gcd = gcd(2260, 816)
+
+    println(gcd)
+
+    var divisors = 0
+    for (i in 1..gcd) {
+       if (gcd%i == 0) divisors++
     }
+
+    println(divisors)
 }
 
 fun isPowerOfTwo(x: Int) =
@@ -22,7 +33,7 @@ fun <T> printAllSubSets(inp: List<T>) {
     for (i in 0 until numOfSubs) {
         print("${i.toString(2)} = {")
 
-        for(j in 0 until inp.size) {
+        for(j in inp.indices) {
             if (i and (1 shl j) > 0) {
                 print("'${inp[j]}' ")
             }
@@ -30,6 +41,8 @@ fun <T> printAllSubSets(inp: List<T>) {
         println("}")
     }
 }
+
+fun gcd(x: Int, y: Int): Int = (if (x == 0) y else gcd(y%x, x)).also { println("x:$x y:$y") }
 
 @ExperimentalUnsignedTypes
 fun largestPower(inp: UInt): UInt {
