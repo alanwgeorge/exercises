@@ -14,6 +14,7 @@ fun <T : Comparable<T>> MutableList<T>.bubbleSort(): MutableList<T> {
     return this
 }
 
+@Suppress("unused")
 fun <T : Comparable<T>> MutableList<T>.selectionSort(): MutableList<T> {
     var minPos = 0
     for (i in indices) {
@@ -26,6 +27,7 @@ fun <T : Comparable<T>> MutableList<T>.selectionSort(): MutableList<T> {
     return this
 }
 
+@Suppress("unused")
 fun <T : Comparable<T>> MutableList<T>.insertionSort(): MutableList<T> {
     for (i in indices) {
         val tmp = this[i]
@@ -42,7 +44,7 @@ fun <T : Comparable<T>> MutableList<T>.insertionSort(): MutableList<T> {
     return this
 }
 
-fun <T : Comparable<T>> MutableList<T>.mergeSort(): MutableList<T> {
+fun <T : Comparable<T>> List<T>.mergeSort(): List<T> {
     fun merge(source: MutableList<T>, l: Int, mid: Int, r: Int) {
         val left = mutableListOf<T>()
         val right = mutableListOf<T>()
@@ -81,9 +83,11 @@ fun <T : Comparable<T>> MutableList<T>.mergeSort(): MutableList<T> {
         }
     }
 
-    sort(this, 0, this.lastIndex)
+    val copy = this.toMutableList()
 
-    return this
+    sort(copy, 0, this.lastIndex)
+
+    return copy
 }
 
 fun <T> MutableList<T>.swap(x: Int, y: Int): MutableList<T> =
