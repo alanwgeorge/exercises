@@ -10,8 +10,8 @@ fun main() {
     repeat(numberOfTestCases) {
         val (gridSize, policeReach) = readLine()?.split(" ", limit = 2)?.map { it.toInt() }?.toTypedArray()?.take(2) ?: throw Exception("error parsing gridSize and policeReach")
         val grid = mutableListOf<MutableList<Char>>()
-        repeat(gridSize) {
-            val gLine = readLine()?.split(" ", limit = gridSize)?.map { it.first() } ?: throw Exception("error parsing grid line $it")
+        repeat(gridSize) { line ->
+            val gLine = readLine()?.split(" ", limit = gridSize)?.map { it.first() } ?: throw Exception("error parsing grid line $line")
             grid.add(gLine.toMutableList())
         }
 
@@ -39,9 +39,10 @@ fun main() {
     }
 }
 
+@Suppress("unused")
 fun <T: Any> List<List<T>>.print() {
-    forEach {
-        it.forEach {
+    forEach { list ->
+        list.forEach {
            print("$it ")
         }
         println()

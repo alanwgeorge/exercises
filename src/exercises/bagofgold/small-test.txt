@@ -1,0 +1,13 @@
+5
+3 1 1 4 1
+7 7
+Harry
+Harry
+Harry
+Remove
+Remove
+Harry
+Remove
+
+Solution:
+2

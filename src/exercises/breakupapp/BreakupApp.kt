@@ -46,7 +46,7 @@ fun main() {
 
     var selectedDay = 0
 
-    for (day in 0..(accum.size - 1)) {
+    for (day in accum.indices) {
         if (accum[day] > accum[selectedDay]) {
             selectedDay = day
         }
