@@ -1,0 +1,18 @@
+8 1
+L
+2
+R
+3
+LL
+5
+LLL
+6
+LLR
+7
+LLLL
+8
+LLLR
+9
+
+Solution:
+6
