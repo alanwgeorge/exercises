@@ -1,5 +1,6 @@
 package exercises.treediameter
 
+import exercises.Tree
 import exercises.TreeNode
 
 /*

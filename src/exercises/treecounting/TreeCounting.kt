@@ -1,12 +1,10 @@
 package exercises.treecounting
 
+import exercises.TreeNode
+
 /*
 *  https://www.hackerearth.com/practice/data-structures/trees/binary-and-nary-trees/practice-problems/algorithm/tree-counting-3/
 */
-
-
-import exercises.TreeNode
-import kotlin.math.pow
 
 fun main() {
     val (nodeCount, minimumSum) = readLine()?.split("""\s+""".toRegex(), 2)?.map { it.toLong() } ?: throw Exception("error parsing nodeCount and K")
@@ -38,10 +36,8 @@ fun main() {
                 tree[idx + 1] = node
             }
 
-    root.prettyPrint()
+//    root.prettyPrint()
     println(root.countSubtrees(minimumSum))
-
-    val foo = 10.0.pow(10)
 }
 
 fun TreeNode<Pair<Int, Long>>.countSubtrees(minimumSum: Long):Int {
@@ -49,7 +45,7 @@ fun TreeNode<Pair<Int, Long>>.countSubtrees(minimumSum: Long):Int {
 
     var count = 0
 
-    val children = children().toList()
+    val children = childrenInOrder()
 
     for (c1 in children.indices) {
         for (c2 in children.lastIndex downTo 0) {

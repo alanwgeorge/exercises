@@ -8,10 +8,6 @@ class TreeNode<T>(
         var left: TreeNode<T>? = null,
         var right: TreeNode<T>? = null){
 
-    companion object {
-        private var diameter = 0
-    }
-
     override fun toString(): String {
         return "Node(value=$value, $value-left=$left, $value-right=$right)"
     }
@@ -57,34 +53,16 @@ class TreeNode<T>(
     }
 
     fun diameter(): Int {
-        diameterRecur(this)
-        return diameter
+        val maxDepthL = left?.maxDepth() ?: 0
+        val maxDepthR = right?.maxDepth() ?: 0
+        val diameterL = left?.diameter() ?: 0
+        val diameterR = right?.diameter() ?: 0
+
+        return max((maxDepthL + maxDepthR + 1), max(diameterL, diameterR))
     }
 
-    private fun diameterRecur(treeNode: TreeNode<T>): Int {
-        with(treeNode) {
-            if (isLeafNode) return 0
-
-            val l = left?.let {
-                diameterRecur(it) + 1
-            } ?: 0
-
-            val r = right?.let {
-                diameterRecur(it) + 1
-            } ?: 0
-
-            if (l + r + 1 > diameter) {
-                diameter = l + r + 1
-            }
-
-//            println("${node.value} $l $r $diameter")
-
-            return max(l, r)
-        }
-    }
-
-    fun children(): Stack<T> =
-        Stack<T>().apply {
+    fun childrenInOrder(): List<T> =
+        mutableListOf<T>().apply {
             left?.let {
                 childrenRecur(it, this)
             }
@@ -93,20 +71,93 @@ class TreeNode<T>(
             }
         }
 
-    private fun childrenRecur(node: TreeNode<T>, stack: Stack<T>): Stack<T> {
+    private fun childrenRecur(node: TreeNode<T>, list: MutableList<T>): List<T> {
         with(node) {
-            stack.push(value)
-
             left?.let {
-                childrenRecur(it, stack)
+                childrenRecur(it, list)
             }
+
+            list.add(value)
 
             right?.let {
-                childrenRecur(it, stack)
+                childrenRecur(it, list)
+            }
+            return list
+        }
+    }
+
+    fun childrenLevelOrder(): List<T> {
+        val list = mutableListOf<T>()
+        for (level in 1..maxDepth()) {
+            list += childrenLevelOrderRecur(this, level)
+        }
+        return list.drop(1)
+    }
+
+    fun childrenLevelOrderRecur(node: TreeNode<T>, level: Int): List<T> {
+        with(node) {
+//            println("level:$level value:${node.value}")
+            val list = mutableListOf<T>()
+
+            if (level == 1) {
+                list.add(value)
+            } else {
+                left?.let {
+                    list += childrenLevelOrderRecur(it, level - 1)
+                }
+
+                right?.let {
+                    list += childrenLevelOrderRecur(it, level - 1)
+                }
             }
 
-            return stack
+//            println(list)
+            return list
         }
+    }
+
+    fun dfs(): List<T> {
+        val stack = Stack<TreeNode<T>>()
+        val valuesInOder = mutableListOf<T>()
+
+        var currentNode: TreeNode<T>? = this
+        while (currentNode != null) {
+            valuesInOder.add(currentNode.value)
+
+            currentNode.right?.let {
+                stack.push(it)
+            }
+
+            currentNode.left?.let {
+                stack.push(it)
+            }
+
+            currentNode = stack.pop()
+        }
+
+        return valuesInOder
+    }
+
+    fun bfs(): List<T> {
+        val queue = Queue<TreeNode<T>>()
+        val valuesInOrder = mutableListOf<T>()
+
+        var currentNode: TreeNode<T>? = this
+        while (currentNode != null) {
+            valuesInOrder.add(currentNode.value)
+
+            currentNode.left?.let {
+                queue.enqueue(it)
+            }
+
+            currentNode.right?.let {
+                queue.enqueue(it)
+            }
+
+            currentNode = queue.dequeue()
+        }
+
+        return valuesInOrder
     }
 
     fun prettyPrint() = printTreeRecur(this, 0)
@@ -115,9 +166,61 @@ class TreeNode<T>(
         if (treeNode == null) return
         val newIndent = indent + 4
 
-        printTreeRecur(treeNode.left, newIndent)
+        printTreeRecur(treeNode.right, newIndent)
         print(" ".repeat(newIndent))
         println("${treeNode.value}")
-        printTreeRecur(treeNode.right, newIndent)
+//        if (treeNode.left != null || treeNode.right != null) println("-<") else println("")
+        printTreeRecur(treeNode.left, newIndent)
     }
 }
+
+class Tree<T>(val root: TreeNode<T>) {
+
+    private var diameterNode: TreeNode<T>? = null
+    fun findDiameterNode(): TreeNode<T> {
+        findDiameterNodeRecur(root)
+        return diameterNode ?: root
+    }
+
+    private fun findDiameterNodeRecur(node: TreeNode<T>) {
+        with(root) {
+            val maxDepthL = left?.maxDepth() ?: 0
+            val maxDepthR = right?.maxDepth() ?: 0
+            val diameterL = left?.diameter() ?: 0
+            val diameterR = right?.diameter() ?: 0
+
+            val potentialDiameter = maxDepthL + maxDepthR + 1
+
+            diameterNode = when {
+                diameterL > potentialDiameter -> left
+                diameterR > potentialDiameter -> right
+                else -> node
+            }
+        }
+    }
+
+    private var deepestLevel = 1
+    private var deepestNode: TreeNode<T>? = null
+    fun findDeepestNode(): TreeNode<T> {
+        findDeepestNodeRecur(root, 1)
+        return deepestNode ?: root
+    }
+
+    private fun findDeepestNodeRecur(node: TreeNode<T>, level: Int) {
+        with(node) {
+            left?.let {
+                findDeepestNodeRecur(it, level + 1)
+            }
+
+            if (level > deepestLevel) {
+                deepestLevel = level
+                deepestNode = node
+            }
+
+            right?.let {
+                findDeepestNodeRecur(it, level + 1)
+            }
+        }
+    }
+}
+
