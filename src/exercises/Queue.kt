@@ -5,6 +5,7 @@ class Queue<T> {
     inner class Node<T>(var ahead: Node<T>?, val value: T, var behind: Node<T>?)
     private var head: Node<T>? = null
     private var tail: Node<T>? = null
+    private var _size: Int = 0
 
     fun enqueue(item: T) {
         tail?.let {
@@ -14,6 +15,7 @@ class Queue<T> {
             tail = Node(null, item, null)
             head = tail
         }
+        _size++
     }
 
     fun dequeue(): T? = head?.let {
@@ -24,10 +26,15 @@ class Queue<T> {
 
         if (head == null) tail = null
 
+        _size--
+
         value
     }
 
     fun peek(): T? =  head?.value
+
+    val size
+        get() = _size
 
     fun toList(): List<T> {
         val result = mutableListOf<T>()
