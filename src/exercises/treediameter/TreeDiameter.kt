@@ -1,7 +1,6 @@
 package exercises.treediameter
 
-import exercises.Tree
-import exercises.TreeNode
+import exercises.BinaryTreeNode
 
 /*
 * https://www.hackerearth.com/practice/data-structures/trees/binary-and-nary-trees/tutorial/
@@ -10,7 +9,7 @@ import exercises.TreeNode
 fun main() {
     val (nodeCount, rootValue) = readLine()?.split("""\s+""".toRegex(), 2)?.map { it.toInt() } ?: throw Exception("error parsing nodeCount and rootValue")
 
-    val root = TreeNode(rootValue)
+    val root = BinaryTreeNode(rootValue)
 
     val paths = mutableListOf<Pair<List<Char>, Int>>()
 
@@ -23,7 +22,7 @@ fun main() {
     for (p in paths.sortedBy { it.first.size }) {
         val (path, value) = p
 
-        val newNode = TreeNode(value)
+        val newNode = BinaryTreeNode(value)
         var location = root
 
         path.dropLast(1).forEach { c ->

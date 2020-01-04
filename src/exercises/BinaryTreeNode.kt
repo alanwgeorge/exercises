@@ -3,10 +3,10 @@ package exercises
 import kotlin.math.max
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
-class TreeNode<T>(
+class BinaryTreeNode<T>(
         val value: T,
-        var left: TreeNode<T>? = null,
-        var right: TreeNode<T>? = null){
+        var left: BinaryTreeNode<T>? = null,
+        var right: BinaryTreeNode<T>? = null){
 
     override fun toString(): String {
         return "Node(value=$value, $value-left=$left, $value-right=$right)"
@@ -17,7 +17,7 @@ class TreeNode<T>(
 
     fun childCount(): Int = childCountRecur(this)
 
-    private fun childCountRecur(treeNode: TreeNode<T>): Int {
+    private fun childCountRecur(treeNode: BinaryTreeNode<T>): Int {
         with(treeNode) {
             if (isLeafNode) return 0
 
@@ -36,7 +36,7 @@ class TreeNode<T>(
 
     fun maxDepth(): Int = maxDepthRecur(this, 0)
 
-    private fun maxDepthRecur(treeNode: TreeNode<T>, accum: Int): Int {
+    private fun maxDepthRecur(treeNode: BinaryTreeNode<T>, accum: Int): Int {
         with(treeNode) {
             if (isLeafNode) return accum + 1
 
@@ -71,7 +71,7 @@ class TreeNode<T>(
             }
         }
 
-    private fun childrenRecur(node: TreeNode<T>, list: MutableList<T>): List<T> {
+    private fun childrenRecur(node: BinaryTreeNode<T>, list: MutableList<T>): List<T> {
         with(node) {
             left?.let {
                 childrenRecur(it, list)
@@ -94,7 +94,7 @@ class TreeNode<T>(
         return list.drop(1)
     }
 
-    fun childrenLevelOrderRecur(node: TreeNode<T>, level: Int): List<T> {
+    fun childrenLevelOrderRecur(node: BinaryTreeNode<T>, level: Int): List<T> {
         with(node) {
 //            println("level:$level value:${node.value}")
             val list = mutableListOf<T>()
@@ -117,10 +117,10 @@ class TreeNode<T>(
     }
 
     fun dfs(): List<T> {
-        val stack = Stack<TreeNode<T>>()
+        val stack = Stack<BinaryTreeNode<T>>()
         val valuesInOder = mutableListOf<T>()
 
-        var currentNode: TreeNode<T>? = this
+        var currentNode: BinaryTreeNode<T>? = this
         while (currentNode != null) {
             valuesInOder.add(currentNode.value)
 
@@ -139,10 +139,10 @@ class TreeNode<T>(
     }
 
     fun bfs(): List<T> {
-        val queue = Queue<TreeNode<T>>()
+        val queue = Queue<BinaryTreeNode<T>>()
         val valuesInOrder = mutableListOf<T>()
 
-        var currentNode: TreeNode<T>? = this
+        var currentNode: BinaryTreeNode<T>? = this
         while (currentNode != null) {
             valuesInOrder.add(currentNode.value)
 
@@ -162,7 +162,7 @@ class TreeNode<T>(
 
     fun prettyPrint() = printTreeRecur(this, 0)
 
-    private fun <T> printTreeRecur(treeNode: TreeNode<T>?, indent: Int) {
+    private fun <T> printTreeRecur(treeNode: BinaryTreeNode<T>?, indent: Int) {
         if (treeNode == null) return
         val newIndent = indent + 4
 
@@ -174,15 +174,15 @@ class TreeNode<T>(
     }
 }
 
-class Tree<T>(val root: TreeNode<T>) {
+class BinaryTree<T>(val root: BinaryTreeNode<T>) {
 
-    private var diameterNode: TreeNode<T>? = null
-    fun findDiameterNode(): TreeNode<T> {
+    private var diameterNode: BinaryTreeNode<T>? = null
+    fun findDiameterNode(): BinaryTreeNode<T> {
         findDiameterNodeRecur(root)
         return diameterNode ?: root
     }
 
-    private fun findDiameterNodeRecur(node: TreeNode<T>) {
+    private fun findDiameterNodeRecur(node: BinaryTreeNode<T>) {
         with(root) {
             val maxDepthL = left?.maxDepth() ?: 0
             val maxDepthR = right?.maxDepth() ?: 0
@@ -200,13 +200,13 @@ class Tree<T>(val root: TreeNode<T>) {
     }
 
     private var deepestLevel = 1
-    private var deepestNode: TreeNode<T>? = null
-    fun findDeepestNode(): TreeNode<T> {
+    private var deepestNode: BinaryTreeNode<T>? = null
+    fun findDeepestNode(): BinaryTreeNode<T> {
         findDeepestNodeRecur(root, 1)
         return deepestNode ?: root
     }
 
-    private fun findDeepestNodeRecur(node: TreeNode<T>, level: Int) {
+    private fun findDeepestNodeRecur(node: BinaryTreeNode<T>, level: Int) {
         with(node) {
             left?.let {
                 findDeepestNodeRecur(it, level + 1)

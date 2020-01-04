@@ -25,15 +25,15 @@ class Solution {
         var one: ListNode? = l1
         var two: ListNode? = l2
         val falseHead = ListNode(0)
-        var currentNode2 = falseHead
+        var currentNode = falseHead
         var carry = 0
 
         while (one != null || two != null) {
             ((one?.`val` ?: 0) + (two?.`val` ?: 0) + carry).let { sum ->
                 carry = sum / 10
                 ListNode(sum % 10).apply {
-                    currentNode2.next = this
-                    currentNode2 = this
+                    currentNode.next = this
+                    currentNode = this
                 }
             }
 
@@ -41,7 +41,7 @@ class Solution {
             two = two?.next
         }
 
-        if (carry > 0) currentNode2.next = ListNode(carry)
+        if (carry > 0) currentNode.next = ListNode(carry)
 
         return falseHead.next
     }

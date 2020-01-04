@@ -1,6 +1,6 @@
 package exercises.treecounting
 
-import exercises.TreeNode
+import exercises.BinaryTreeNode
 
 /*
 *  https://www.hackerearth.com/practice/data-structures/trees/binary-and-nary-trees/practice-problems/algorithm/tree-counting-3/
@@ -11,14 +11,14 @@ fun main() {
     val numbers = readLine()?.split("""\s+""".toRegex(), nodeCount.toInt())?.map { it.toLong() } ?: throw Exception("error parsing numbers")
     val parents = readLine()?.split("""\s+""".toRegex(), nodeCount.toInt())?.map { it.toInt() } ?: throw Exception("error parsing parents")
 
-    val tree = mutableMapOf<Int, TreeNode<Pair<Int, Long>>>()
-    val root = TreeNode(1 to numbers.first())
+    val tree = mutableMapOf<Int, BinaryTreeNode<Pair<Int, Long>>>()
+    val root = BinaryTreeNode(1 to numbers.first())
     tree[0] = root
 
     numbers.drop(1).zip(parents) { number, parent -> number to parent }
             .forEachIndexed { idx, numberparent ->
                 val (number, parentIdx) = numberparent
-                val node = TreeNode((idx + 2) to number)
+                val node = BinaryTreeNode((idx + 2) to number)
                 val parent = tree[parentIdx - 1] ?: throw Exception("could not find parent for $numberparent")
 
                 when {
@@ -40,7 +40,7 @@ fun main() {
     println(root.countSubtrees(minimumSum))
 }
 
-fun TreeNode<Pair<Int, Long>>.countSubtrees(minimumSum: Long):Int {
+fun BinaryTreeNode<Pair<Int, Long>>.countSubtrees(minimumSum: Long):Int {
     if (isLeafNode) return 0
 
     var count = 0
