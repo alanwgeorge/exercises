@@ -112,41 +112,39 @@ class Solution {
 
 data class Test(val arg: String, val solution: String)
 fun main() {
-    val charPool = ('a'..'z').toList()
-    fun randomString() = (1..10000)
-            .map { i -> Random.nextInt(0, charPool.size) }
-            .map(charPool::get)
-            .joinToString("");
-
-    val s = Solution2()
-    repeat(10) {
-        val input = randomString()
-        val result = s.longestPalindrome(input)
-        println("${Solution2.loops} $result $input")
-        Solution2.loops = 0
-    }
-
-
-
-//    val tests = listOf(
-//            Test("babad", "bab"),
-//            Test("cbbd", "bb"),
-//            Test("djdjqwertyuioppoiuytrewqaaa", "qwertyuioppoiuytrewq"),
-//            Test("1234567890", "1"),
-//            Test("a", "a"),
-//            Test("ac", "a"),
-//            Test("babadada", "adada"),
-//            Test("abacdfgdcaba", "aba"),
-//            Test("12abba34", "abba"),
-//            Test("aaaabaaa", "aaabaaa")
-//    )
+//    val charPool = ('a'..'z').toList()
+//    fun randomString() = (1..10000)
+//            .map { i -> Random.nextInt(0, charPool.size) }
+//            .map(charPool::get)
+//            .joinToString("");
 //
-//    val s = Solution()
-//
-//    tests.forEach {
-//        val result = s.longestPalindrome(it.arg)
-//        println("$result ${Solution.loops} ${it.arg.length}")
-//        Solution.loops = 0
-//        if (result != it.solution) throw Exception("test failed $it expected ${it.solution} actual $result")
+//    val s = Solution2()
+//    repeat(10) {
+//        val input = randomString()
+//        val result = s.longestPalindrome(input)
+//        println("${Solution2.loops} $result $input")
+//        Solution2.loops = 0
 //    }
+
+    val tests = listOf(
+            Test("babad", "bab"),
+            Test("cbbd", "bb"),
+            Test("djdjqwertyuioppoiuytrewqaaa", "qwertyuioppoiuytrewq"),
+            Test("1234567890", "1"),
+            Test("a", "a"),
+            Test("ac", "a"),
+            Test("babadada", "adada"),
+            Test("abacdfgdcaba", "aba"),
+            Test("12abba34", "abba"),
+            Test("aaaabaaa", "aaabaaa")
+    )
+
+    val s = Solution()
+
+    tests.forEach {
+        val result = s.longestPalindrome(it.arg)
+        println("$result ${Solution.loops} ${it.arg.length}")
+        Solution.loops = 0
+        if (result != it.solution) throw Exception("test failed $it expected ${it.solution} actual $result")
+    }
 }
