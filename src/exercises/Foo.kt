@@ -4,7 +4,7 @@ package exercises
 fun main() {
     run run@{
         listOf(1, 2, 3, 4, 5, 6, 7).forEach escape@{
-            if (it == 3) return@run
+            if (it == 3) return@escape
             println("$it")
         }
     }
