@@ -11,7 +11,7 @@ fun main() {
 //        println("input: ${input.toList()}")
 
         var s = 0
-        var e = input.size - 1
+        var e = input.lastIndex
 
         while (e - s >= 0){
 //            println("${input[s]} ${input[e]} ${e - s}")
