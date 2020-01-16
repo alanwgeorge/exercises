@@ -1,12 +1,14 @@
 package exercises.patternmatch
 
+
 /*
 * https://leetcode.com/problems/regular-expression-matching/
 */
 
-class Solution {
+@Suppress("unused")
+class Solution1 { // broken
     fun isMatch(s: String, p: String): Boolean {
-        if (p.isEmpty()) return s.isEmpty().also { val s = if (it) "empty" else "not empty"; println("$it, p was empty, s was $s") }
+        if (p.isEmpty()) return s.isEmpty().also { val e = if (it) "empty" else "not empty"; println("$it, p was empty, s was $e") }
 
         var sPtr = 0
         var pPtr = 0
@@ -50,6 +52,7 @@ class Solution {
     }
 }
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class Solution2 {
     fun isMatch(text: String, pattern: String): Boolean {
         if (pattern.isEmpty()) return text.isEmpty().also { val s = if (it) "empty" else "not empty"; println("$it, p was empty, s was $s") }
@@ -66,28 +69,71 @@ class Solution2 {
     }
 }
 
+class Solution3(private val debug:Boolean = false) {
+    fun isMatch(text: String, pattern: String): Boolean {
+        val memo = List(text.length + 1) {
+            MutableList(pattern.length + 1) { false }
+        }
+
+        memo[0][0] = true
+        // handle zero length pattern matches (a*, a*b*c*, etc.)
+        for (p in pattern.indices) {
+            if (pattern[p] == '*') {
+                memo[0][p + 1] = memo[0][p - 1]
+            }
+        }
+
+        for (i in 1 until memo.size) {
+            for (j in 1 until memo[0].size) {
+                if (text[i - 1] == pattern[j - 1] || pattern[j - 1] == '.') {
+                    memo[i][j] = memo[i - 1][j - 1]
+                } else if (pattern[j - 1] == '*') {
+                    memo[i][j] = memo[i][j - 2]
+                    if (pattern[j - 2] == '.' || pattern[j - 2 ] == text[i - 1]) {
+                        memo[i][j] = memo[i - 1][j] || memo[i][j]
+                    }
+                } else {
+                    memo[i][j] = false
+                }
+            }
+        }
+
+        if (debug) memo.print()
+
+        return memo[text.length][pattern.length]
+    }
+
+    private fun <T> List<List<T>>.print() {
+        map { l ->
+            println(l.map { it.toString().first() })
+        }
+    }
+}
+
+
 data class Test(val input: String, val pattern: String, val solution: Boolean)
 
 @Suppress("SpellCheckingInspection")
 fun main() {
-    val test1 = Test("aa", "a", false)
-    val test2 = Test("aa", "a*", true)
-    val test3 = Test("aa", ".*", true)
-    val test4 = Test("aab", "c*a*b", true)
-    val test5 = Test("mississippi", "mis*is*p*.", false)
-    val test6 = Test("aa", "aa", true)
-    val test7 = Test("aa", "aa*", true)
-    val test8 = Test("ab", ".*c", false)
-    val test9 = Test("asdsabc", ".*c", true)
-    val test10 = Test("aaa", "a*a", true)
-    val test11 = Test("", "", true)
-    val test12 = Test("a", "", false)
-    val test13 = Test("", "a*", false)
-    val test14 = Test("aaa", "ab*a*c*a", true)
+    val tests = listOf(
+            Test("aa", "a", false),
+            Test("aa", "a*", true),
+            Test("aa", ".*", true),
+            Test("aab", "c*a*b", true),
+            Test("mississippi", "mis*is*p*.", false),
+            Test("aa", "aa", true),
+            Test("aa", "aa*", true),
+            Test("ab", ".*c", false),
+            Test("asdsabc", ".*c", true),
+            Test("aaa", "a*a", true),
+            Test("", "", true),
+            Test("a", "", false),
+            Test("", "a*", true),
+            Test("aaa", "ab*a*c*a", true),
+            Test("xaabyc", "xa*b.c", true)
+    )
 
-    val tests = listOf(test1, test2, test3, test4, test5, test6, test7, test8, test9, test10, test11, test12, test14)
-
-    val s = Solution2()
+    val s = Solution3(debug = true)
 
     tests.forEach {
         println("test: $it")
