@@ -68,6 +68,39 @@ class Solution {
     }
 }
 
+class Solution2() {
+    private val romanThresholds = mapOf(
+            1000 to "M",
+            900 to "CM",
+            500 to "D",
+            400 to "CD",
+            100 to "C",
+            90 to "XC",
+            50 to "L",
+            40 to "XL",
+            10 to "X",
+            9 to "IX",
+            5 to "V",
+            4 to "IV",
+            1 to "I"
+    )
+
+    fun intToRoman(num: Int): String {
+        var _num = num
+        var result = ""
+
+        for ((threshold, roman) in romanThresholds) {
+            while (_num / threshold > 0) {
+                _num -= threshold
+                result += roman
+            }
+        }
+
+        return result
+    }
+}
+
+
 fun main() {
     @Suppress("SpellCheckingInspection")
     val tests = listOf(
@@ -81,7 +114,7 @@ fun main() {
             3999 to "MMMCMXCIX"
     )
 
-    val s = Solution()
+    val s = Solution2()
 
     tests.forEach {
         println("test: $it")
