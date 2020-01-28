@@ -27,23 +27,23 @@ class Solution {
         val _digits = digits.map { it.toString().toInt() }
         val result = mutableListOf<String>()
 
-        val root = Nary("")
+        val root = Trie("")
 
-        var lastNodes = mutableListOf<Nary<String>>().apply {
+        var lastNodes = mutableListOf<Trie<String>>().apply {
             add(root)
         }
 
         for (d in _digits) {
             loops++
             phone[d]?.let {
-                val newNodes = mutableListOf<Nary<String>>()
+                val newNodes = mutableListOf<Trie<String>>()
                 it.forEach { c ->
                     loops++
                     lastNodes.forEach { node ->
                         loops++
                         val value = node.value + c
                         if (value.length == _digits.size) result.add(value)
-                        with(Nary(value)) {
+                        with(Trie(value)) {
                             parent = node
                             node.children.add(this)
                             newNodes.add(this)
@@ -57,9 +57,9 @@ class Solution {
         return result
     }
 
-    class Nary<T>(val value: T) {
-        var parent: Nary<T>? = null
-        val children = mutableListOf<Nary<T>>()
+    class Trie<T>(val value: T) {
+        var parent: Trie<T>? = null
+        val children = mutableListOf<Trie<T>>()
 
         override fun toString(): String {
             return "Nary(value=$value, parent=${parent?.value}, children=$children)"
