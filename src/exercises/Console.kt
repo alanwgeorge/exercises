@@ -12,7 +12,7 @@ private const val LINE_SEPARATOR_MAX_LENGTH: Int = 2
 
 private val decoder: CharsetDecoder by lazy { Charset.defaultCharset().newDecoder() }
 
-var readLineInput = System.`in`
+var readLineInput: InputStream = System.`in`
 
 fun readLine(): String? = readLine(readLineInput, decoder)
 
