@@ -34,6 +34,25 @@ class BinaryTreeNode<T>(
         }
     }
 
+    fun countLeafs(): Int = countLeafsRecur(this)
+
+    fun countLeafsRecur(node: BinaryTreeNode<T>): Int {
+        with(node) {
+            if (isLeafNode) return 1
+
+            var count = 0
+            left?.let {
+                count += countLeafsRecur(it)
+            }
+
+            right?.let {
+                count += countLeafsRecur(it)
+            }
+
+            return count
+        }
+    }
+
     fun maxDepth(): Int = maxDepthRecur(this, 0)
 
     private fun maxDepthRecur(treeNode: BinaryTreeNode<T>, accum: Int): Int {
