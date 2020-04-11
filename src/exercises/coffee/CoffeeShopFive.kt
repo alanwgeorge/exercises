@@ -9,6 +9,7 @@ import kotlinx.coroutines.selects.*
 import kotlin.system.measureTimeMillis
 
 // this extends the behavior of CoffeeShopFour to merge the completed coffee orders
+// add VM arg for debug out put -Dkotlinx.coroutines.debug
 @InternalCoroutinesApi
 @kotlinx.coroutines.ExperimentalCoroutinesApi
 fun main() = runBlocking(CoroutineName("main")) {
