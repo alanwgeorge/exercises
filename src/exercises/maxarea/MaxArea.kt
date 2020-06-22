@@ -1,6 +1,5 @@
 package exercises.maxarea
 
-import java.util.*
 import kotlin.math.min
 
 /*
