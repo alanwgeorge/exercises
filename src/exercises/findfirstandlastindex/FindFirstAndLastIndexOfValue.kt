@@ -47,7 +47,7 @@ data class Test(val nums: List<Int>, val target: Int, val solution: Pair<Int, In
 fun main() {
     val tests = listOf(
             Test(nums = listOf(5,7,7,8,8,10), target = 8, solution = 3 to 4),
-            Test(nums = listOf(5,7,7,8,8,10), target = 6, solution = -1 to -1),
+            Test(nums = listOf(5,7,7,8,8,10), target = 9, solution = -1 to -1),
             Test(nums = listOf(7,7,8,8,10), target = 7, solution = 0 to 1),
             Test(nums = listOf(7,7,8,8,10,10,10), target = 10, solution = 4 to 6)
     )
