@@ -39,7 +39,7 @@ class Solution {
 
         while (start <= end) {
             loops++
-            if (loops > (source.size * 2)) throw Exception("endless loop detected")
+//            if (loops > (source.size * 2)) throw Exception("endless loop detected")
             val mid = ((end - start) / 2) + start
             val derefValue = source[derefFuc(mid)]
 //            println("start:$start mid:$mid end:$end derefMid:${derefFuc(mid)} derefValue:$derefValue target:$target")
