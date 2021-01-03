@@ -35,7 +35,7 @@ fun main() {
 
     tests.forEach { test ->
         println("test: $test")
-        exercises.searchrotatedarray.Solution.loops = 0
+        Solution.loops = 0
         val result = s.searchInsert(test.nums.toIntArray(), test.target)
         println("$result loops:${Solution.loops}")
         if (result != test.solution) throw Exception("test case $test failed, result $result, expected ${test.solution}")
