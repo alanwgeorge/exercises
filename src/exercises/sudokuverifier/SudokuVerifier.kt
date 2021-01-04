@@ -1,5 +1,8 @@
 package exercises.sudokuverifier
 
+/*
+ * https://leetcode.com/problems/valid-sudoku/
+ */
 
 class Solution {
     fun isValidSudoku(board: Array<CharArray>): Boolean {

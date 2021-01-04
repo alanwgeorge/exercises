@@ -1,5 +1,9 @@
 package exercises.findfirstandlastindex
 
+/*
+* https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+*/
+
 class Solution {
     fun searchRange(nums: IntArray, target: Int): IntArray {
         val firstFind = binarySearch(nums.toList(), target)

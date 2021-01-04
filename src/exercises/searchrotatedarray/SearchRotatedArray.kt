@@ -3,6 +3,10 @@ package exercises.searchrotatedarray
 infix fun <P1, P2, R> P1.pipe2(t: (P1, P2) -> R): (P2) -> R = { p2 -> t(this, p2) }
 infix fun <P1, P2, P3, R> P1.pipe3(t: (P1, P2, P3) -> R): (P2, P3) -> R = { p2, p3 -> t(this, p2, p3) }
 
+/*
+* https://leetcode.com/problems/search-in-rotated-sorted-array/
+*/
+
 class Solution {
     fun search(nums: IntArray, target: Int): Int {
 
